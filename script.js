@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 <img src="${produto.imagem}" alt="${produto.nome}">
                 <h3>${produto.nome}</h3>
                 <p>${produto.descricao}</p>
-                <p><strong>Preço:</strong> R$ ${produto.preco.toFixed(2)}</p>
             </div>
         `).join('');
     }
