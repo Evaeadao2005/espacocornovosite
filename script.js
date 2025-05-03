@@ -1,594 +1,362 @@
-:root {
-    --primary-color: #2c3e50;
-    --secondary-color: #3498db;
-    --accent-color: #e74c3c;
-    --light-color: #ecf0f1;
-    --dark-color: #2c3e50;
-    --text-color: #333;
-    --text-light: #7f8c8d;
-    --white: #fff;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --transition: all 0.3s ease;
-}
+document.addEventListener("DOMContentLoaded", function () {
+    // Elementos globais
+    const produtosContainer = document.getElementById("produtos");
+    const destaquesContainer = document.getElementById("destaques");
+    const categoriaSelect = document.getElementById("categoria");
+    const buscaInput = document.getElementById("busca");
+    const cartCount = document.querySelector(".cart-count");
+    
+    // Estado da aplicação
+    let produtos = [];
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let compareItems = [];
 
-/* Reset e Estilos Base */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    // Inicialização
+    updateCartCount();
+    loadProducts();
+    initProductsPage();
+    initEventListeners();
 
-body {
-    font-family: 'Poppins', sans-serif;
-    line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--light-color);
-}
+    // Carrega os produtos
+    function loadProducts() {
+        fetch('produtos.json')
+            .then(response => response.json())
+            .then(data => {
+                produtos = data;
+                if (destaquesContainer) exibirDestaques(produtos, destaquesContainer);
+                if (produtosContainer) exibirProdutos(produtos, produtosContainer);
+            })
+            .catch(error => console.error("Erro ao carregar produtos:", error));
+    }
 
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
+    // Inicializa a página de produtos
+    function initProductsPage() {
+        if (!document.getElementById("produtos")) return;
 
-img {
-    max-width: 100%;
-    height: auto;
-}
+        // Controles de visualização
+        const viewButtons = document.querySelectorAll(".view-btn");
+        const productsGrid = document.querySelector(".products-grid");
+        
+        viewButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                viewButtons.forEach(btn => btn.classList.remove("active"));
+                button.classList.add("active");
+                
+                if (button.classList.contains("grid-view")) {
+                    productsGrid.classList.remove("list-view");
+                } else {
+                    productsGrid.classList.add("list-view");
+                }
+            });
+        });
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
+        // Filtro de preço
+        const priceSlider = document.getElementById("priceRange");
+        const maxPriceDisplay = document.getElementById("maxPrice");
+        
+        if (priceSlider && maxPriceDisplay) {
+            priceSlider.addEventListener("input", () => {
+                const maxPrice = priceSlider.value;
+                maxPriceDisplay.textContent = `R$ ${maxPrice}`;
+                filtrarProdutos();
+            });
+        }
 
-ul {
-    list-style: none;
-}
+        // Filtro de categoria
+        const categoryLinks = document.querySelectorAll(".category-list a");
+        
+        categoryLinks.forEach(link => {
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+                categoryLinks.forEach(l => l.classList.remove("active"));
+                link.classList.add("active");
+                if (categoriaSelect) {
+                    categoriaSelect.value = link.dataset.category;
+                }
+                filtrarProdutos();
+            });
+        });
 
-.btn {
-    display: inline-block;
+        // Filtro de destaques
+        const featuredCheckbox = document.getElementById("featuredOnly");
+        
+        if (featuredCheckbox) {
+            featuredCheckbox.addEventListener("change", filtrarProdutos);
+        }
+
+        // Sistema de comparação
+        const compareList = document.getElementById("compareList");
+        const compareBtn = document.getElementById("compareBtn");
+        
+        window.addToCompare = function(productId) {
+            if (compareItems.includes(productId)) {
+                compareItems = compareItems.filter(id => id !== productId);
+            } else {
+                if (compareItems.length >= 3) {
+                    showToast("Você pode comparar no máximo 3 produtos");
+                    return;
+                }
+                compareItems.push(productId);
+            }
+            
+            updateCompareList();
+        };
+        
+        function updateCompareList() {
+            compareList.innerHTML = "";
+            
+            if (compareItems.length === 0) {
+                compareBtn.disabled = true;
+                return;
+            }
+            
+            compareBtn.disabled = false;
+            
+            compareItems.forEach(productId => {
+                const product = produtos.find(p => p.id === productId);
+                if (product) {
+                    const li = document.createElement("li");
+                    li.innerHTML = `
+                        ${product.nome}
+                        <span class="remove-compare" onclick="addToCompare(${productId})">
+                            <i class="fas fa-times"></i>
+                        </span>
+                    `;
+                    compareList.appendChild(li);
+                }
+            });
+        }
+        
+        compareBtn.addEventListener("click", () => {
+            showToast(`Comparando ${compareItems.length} produtos...`);
+            // Implementar lógica de comparação aqui
+        });
+
+        // Busca avançada
+        const searchBtn = document.querySelector(".search-btn");
+        const searchOverlay = document.querySelector(".search-overlay");
+        const closeSearch = document.querySelector(".close-search");
+        
+        if (searchBtn && searchOverlay && closeSearch) {
+            searchBtn.addEventListener("click", () => {
+                searchOverlay.classList.add("show");
+            });
+            
+            closeSearch.addEventListener("click", () => {
+                searchOverlay.classList.remove("show");
+            });
+        }
+
+        // Ordenação
+        const sortBy = document.getElementById("sortBy");
+        
+        if (sortBy) {
+            sortBy.addEventListener("change", () => {
+                filtrarProdutos();
+            });
+        }
+    }
+
+    // Inicializa event listeners
+    function initEventListeners() {
+        if (categoriaSelect) {
+            categoriaSelect.addEventListener("change", filtrarProdutos);
+        }
+        
+        if (buscaInput) {
+            buscaInput.addEventListener("input", filtrarProdutos);
+        }
+    }
+
+    // Filtra os produtos
+    function filtrarProdutos() {
+        const categoria = categoriaSelect ? categoriaSelect.value : "todos";
+        const termoBusca = buscaInput ? buscaInput.value.toLowerCase() : "";
+        const maxPrice = document.getElementById("priceRange") ? document.getElementById("priceRange").value : 500;
+        const featuredOnly = document.getElementById("featuredOnly") ? document.getElementById("featuredOnly").checked : false;
+        const sortBy = document.getElementById("sortBy") ? document.getElementById("sortBy").value : "relevance";
+
+        let produtosFiltrados = produtos.filter(produto => {
+            const correspondeCategoria = categoria === "todos" || produto.categoria === categoria;
+            const correspondeBusca = produto.nome.toLowerCase().includes(termoBusca) || 
+                                   produto.descricao.toLowerCase().includes(termoBusca);
+            const correspondePreco = produto.preco <= maxPrice;
+            const correspondeDestaque = !featuredOnly || produto.destaque;
+            
+            return correspondeCategoria && correspondeBusca && correspondePreco && correspondeDestaque;
+        });
+
+        // Ordenação
+        produtosFiltrados = ordenarProdutos(produtosFiltrados, sortBy);
+
+        if (produtosContainer) exibirProdutos(produtosFiltrados, produtosContainer);
+    }
+
+    // Ordena produtos
+    function ordenarProdutos(produtos, criterio) {
+        switch(criterio) {
+            case "price-asc":
+                return [...produtos].sort((a, b) => a.preco - b.preco);
+            case "price-desc":
+                return [...produtos].sort((a, b) => b.preco - a.preco);
+            case "name-asc":
+                return [...produtos].sort((a, b) => a.nome.localeCompare(b.nome));
+            case "name-desc":
+                return [...produtos].sort((a, b) => b.nome.localeCompare(a.nome));
+            default:
+                return produtos;
+        }
+    }
+
+    // Exibe os produtos
+    function exibirProdutos(produtos, container) {
+        if (!container) return;
+        
+        container.innerHTML = produtos.map(produto => `
+            <div class="product-card">
+                ${produto.destaque ? '<span class="product-badge">Destaque</span>' : ''}
+                <div class="product-image">
+                    <img src="assets/${produto.imagem}" alt="${produto.nome}" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <span class="product-category">${formatCategoria(produto.categoria)}</span>
+                    <h3 class="product-title">${produto.nome}</h3>
+                    <p class="product-description">${produto.descricao}</p>
+                    <div class="product-price">${formatPrice(produto.preco)}</div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="addToCart(${produto.id})">Comprar</button>
+                        <button class="btn btn-secondary" onclick="viewDetails(${produto.id})">Detalhes</button>
+                        <button class="btn-icon compare-btn" onclick="addToCompare(${produto.id})" title="Comparar">
+                            <i class="fas fa-exchange-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Exibe os produtos em destaque
+    function exibirDestaques(produtos, container) {
+        if (!container) return;
+        const produtosDestaque = produtos.filter(produto => produto.destaque);
+        exibirProdutos(produtosDestaque, container);
+    }
+
+    // Formata categoria para exibição
+    function formatCategoria(categoria) {
+        const categorias = {
+            "parede": "Tinta para Parede",
+            "madeira": "Tinta para Madeira",
+            "metal": "Tinta para Metal"
+        };
+        return categorias[categoria] || categoria;
+    }
+
+    // Formata preço
+    function formatPrice(price) {
+        return new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(price);
+    }
+
+    // Adiciona ao carrinho (disponível globalmente)
+    window.addToCart = function(productId) {
+        const product = produtos.find(p => p.id === productId);
+        if (product) {
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+            }
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCartCount();
+            showToast(`${product.nome} adicionado ao carrinho`);
+        }
+    };
+
+    // Atualiza contador do carrinho
+    function updateCartCount() {
+        if (cartCount) {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            cartCount.style.display = totalItems > 0 ? "flex" : "none";
+        }
+    }
+
+    // Visualizar detalhes (disponível globalmente)
+    window.viewDetails = function(productId) {
+        // Na implementação real, redirecionaria para página de detalhes
+        const product = produtos.find(p => p.id === productId);
+        if (product) {
+            showToast(`Abrindo detalhes de ${product.nome}...`);
+            // window.location.href = `detalhes.html?id=${productId}`;
+        }
+    };
+
+    // Mostra notificação
+    function showToast(message) {
+        const toast = document.createElement("div");
+        toast.className = "toast";
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.classList.add("show");
+        }, 100);
+        
+        setTimeout(() => {
+            toast.classList.remove("show");
+            setTimeout(() => {
+                document.body.removeChild(toast);
+            }, 300);
+        }, 3000);
+    }
+});
+
+// Adiciona estilos dinâmicos para o toast
+const toastStyles = document.createElement("style");
+toastStyles.textContent = `
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
     padding: 12px 24px;
     border-radius: 4px;
-    font-weight: 500;
-    text-align: center;
-    transition: var(--transition);
-    cursor: pointer;
-    border: none;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
-
-.btn-primary {
-    background-color: var(--secondary-color);
-    color: var(--white);
+.toast.show {
+    opacity: 1;
 }
+`;
+document.head.appendChild(toastStyles);
 
-.btn-primary:hover {
-    background-color: #2980b9;
-    transform: translateY(-2px);
-}
-
-.btn-secondary {
-    background-color: var(--primary-color);
-    color: var(--white);
-}
-
-.btn-secondary:hover {
-    background-color: #1a252f;
-    transform: translateY(-2px);
-}
-
-.btn-icon {
+// Adiciona estilos dinâmicos para o botão de comparação
+const compareBtnStyles = document.createElement("style");
+compareBtnStyles.textContent = `
+.compare-btn {
     background: none;
     border: none;
-    font-size: 1.2rem;
-    color: var(--white);
-    cursor: pointer;
-    position: relative;
-    transition: var(--transition);
-    margin-left: 15px;
-}
-
-.btn-icon:hover {
-    color: var(--secondary-color);
-}
-
-.cart-count {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background-color: var(--accent-color);
-    color: white;
-    border-radius: 50%;
-    width: 18px;
-    height: 18px;
-    font-size: 0.7rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Header */
-.main-header {
-    background-color: var(--primary-color);
-    color: var(--white);
-    padding: 15px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: var(--shadow);
-}
-
-.main-header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo h1 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-
-.tagline {
-    font-size: 0.8rem;
-    color: var(--secondary-color);
-    display: block;
-}
-
-.main-nav ul {
-    display: flex;
-}
-
-.main-nav li {
-    margin: 0 15px;
-    position: relative;
-}
-
-.main-nav a {
-    font-weight: 500;
-    padding: 5px 0;
-    transition: var(--transition);
-}
-
-.main-nav a:hover,
-.main-nav .active a {
-    color: var(--secondary-color);
-}
-
-.main-nav .active a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--secondary-color);
-}
-
-.header-actions {
-    display: flex;
-    align-items: center;
-}
-
-/* Hero Banner */
-.hero-banner {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('assets/hero-bg.jpg') no-repeat center center/cover;
-    color: var(--white);
-    padding: 100px 0;
-    text-align: center;
-}
-
-.hero-content h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-
-.hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Features */
-.features-section {
-    padding: 60px 0;
-    background-color: var(--white);
-}
-
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
-}
-
-.feature-item {
-    text-align: center;
-    padding: 30px;
-    border-radius: 8px;
-    transition: var(--transition);
-}
-
-.feature-item:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow);
-}
-
-.feature-item i {
-    font-size: 2.5rem;
-    color: var(--secondary-color);
-    margin-bottom: 20px;
-}
-
-.feature-item h3 {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-}
-
-/* Products */
-.products-section {
-    padding: 80px 0;
-    background-color: var(--light-color);
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-}
-
-.section-header h2 {
-    font-size: 2rem;
-    position: relative;
-    padding-bottom: 10px;
-}
-
-.section-header h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 60px;
-    height: 3px;
-    background-color: var(--secondary-color);
-}
-
-.btn-link {
-    display: flex;
-    align-items: center;
-    color: var(--secondary-color);
-    font-weight: 500;
-    transition: var(--transition);
-}
-
-.btn-link:hover {
     color: var(--primary-color);
-}
-
-.btn-link i {
-    margin-left: 5px;
-    font-size: 0.8rem;
-}
-
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
-}
-
-.product-card {
-    background-color: var(--white);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    position: relative;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.product-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: var(--accent-color);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: 500;
-}
-
-.product-image {
-    height: 200px;
-    overflow: hidden;
-}
-
-.product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: var(--transition);
-}
-
-.product-card:hover .product-image img {
-    transform: scale(1.05);
-}
-
-.product-info {
-    padding: 20px;
-}
-
-.product-category {
-    color: var(--secondary-color);
-    font-size: 0.8rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-}
-
-.product-title {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-.product-description {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    margin-bottom: 15px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.product-price {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 15px;
-}
-
-.product-actions {
-    display: flex;
-    justify-content: space-between;
-}
-
-/* Testimonials */
-.testimonials-section {
-    padding: 80px 0;
-    background-color: var(--white);
-    text-align: center;
-}
-
-.testimonials-section h2 {
-    margin-bottom: 50px;
-}
-
-.testimonials-slider {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.testimonial {
-    background-color: var(--light-color);
-    padding: 30px;
-    border-radius: 8px;
-    margin: 0 15px;
-}
-
-.rating {
-    color: #f1c40f;
-    margin-bottom: 20px;
-}
-
-.testimonial p {
-    font-style: italic;
-    margin-bottom: 20px;
-}
-
-.client-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.client-info img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 15px;
-    object-fit: cover;
-}
-
-/* CTA Section */
-.cta-section {
-    padding: 80px 0;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)));
-    color: var(--white);
-    text-align: center;
-}
-
-.cta-section h2 {
-    font-size: 2.2rem;
-    margin-bottom: 20px;
-}
-
-.cta-section p {
-    font-size: 1.1rem;
-    margin-bottom: 30px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Footer */
-.main-footer {
-    background-color: var(--dark-color);
-    color: var(--white);
-    padding: 60px 0 0;
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
-    margin-bottom: 40px;
-}
-
-.footer-col h3 {
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-    position: relative;
-    padding-bottom: 10px;
-}
-
-.footer-col h3::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
-    height: 2px;
-    background-color: var(--secondary-color);
-}
-
-.footer-col p {
-    margin-bottom: 20px;
-    color: #bdc3c7;
-}
-
-.social-links {
-    display: flex;
-    gap: 15px;
-}
-
-.social-links a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    transition: var(--transition);
-}
-
-.social-links a:hover {
-    background-color: var(--secondary-color);
-    transform: translateY(-3px);
-}
-
-.footer-col ul li {
-    margin-bottom: 10px;
-}
-
-.footer-col ul li i {
-    margin-right: 10px;
-    color: var(--secondary-color);
-    width: 20px;
-    text-align: center;
-}
-
-.newsletter-form {
-    display: flex;
-    margin-top: 20px;
-}
-
-.newsletter-form input {
-    flex: 1;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px 0 0 4px;
-    font-family: inherit;
-}
-
-.newsletter-form button {
-    background-color: var(--secondary-color);
-    color: white;
-    border: none;
-    padding: 0 15px;
-    border-radius: 0 4px 4px 0;
+    font-size: 1rem;
     cursor: pointer;
     transition: var(--transition);
-}
-
-.newsletter-form button:hover {
-    background-color: #2980b9;
-}
-
-.footer-bottom {
-    background-color: rgba(0, 0, 0, 0.2);
-    padding: 20px 0;
-    text-align: center;
-}
-
-.footer-bottom .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.footer-bottom p {
-    color: #bdc3c7;
-    font-size: 0.9rem;
-}
-
-.payment-methods i {
-    font-size: 1.5rem;
     margin-left: 10px;
-    color: #bdc3c7;
 }
 
-/* Responsividade */
-@media (max-width: 992px) {
-    .main-nav {
-        display: none;
-    }
-    
-    .hero-content h2 {
-        font-size: 2rem;
-    }
+.compare-btn:hover {
+    color: var(--secondary-color);
+    transform: rotate(90deg);
 }
-
-@media (max-width: 768px) {
-    .hero-banner {
-        padding: 80px 0;
-    }
-    
-    .footer-bottom .container {
-        flex-direction: column;
-    }
-    
-    .payment-methods {
-        margin-top: 15px;
-    }
-}
-
-@media (max-width: 576px) {
-    .hero-content h2 {
-        font-size: 1.8rem;
-    }
-    
-    .features-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .section-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .btn-link {
-        margin-top: 15px;
-    }
-}
+`;
+document.head.appendChild(compareBtnStyles);
