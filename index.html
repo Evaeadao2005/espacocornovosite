@@ -3,23 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Espaço Cor - Materiais para pintura de qualidade. Tintas para parede, madeira e metal com os melhores preços.">
     <title>Espaço Cor - Materiais para Pintura</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- HEADER MODERNO -->
     <header class="main-header">
-        <div class="container header-container">
+        <div class="container">
             <div class="logo">
-                <img src="assets/logo.png" alt="Espaço Cor">
-                <div class="logo-text">
-                    <a href="index.html">Espaço Cor</a>
-                    <span>Materiais para pintura</span>
-                </div>
+                <a href="index.html">Espaço Cor</a>
+                <span>Materiais para pintura</span>
             </div>
-            
             <nav class="main-nav">
                 <ul>
                     <li class="active"><a href="index.html">Início</a></li>
@@ -28,64 +24,34 @@
                     <li><a href="contato.html">Contato</a></li>
                 </ul>
             </nav>
-            
-            <div class="search-container">
-                <form class="search-form">
-                    <input type="text" class="search-input" placeholder="Pesquisar produtos...">
-                    <button type="submit" class="search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
+            <div class="header-actions">
+                <button class="btn-icon search-btn"><i class="fas fa-search"></i></button>
             </div>
         </div>
     </header>
 
-    <!-- HERO BANNER -->
     <section class="hero-banner">
         <div class="container">
             <div class="hero-content">
-                <h1>Materiais para pintura de alta qualidade</h1>
-                <p>Tudo o que você precisa para seus projetos de pintura e decoração</p>
-                <div class="hero-buttons">
-                    <a href="produtos.html" class="btn">Ver Produtos</a>
-                    <a href="contato.html" class="btn btn-outline">Fale Conosco</a>
-                </div>
+                <h2>Materiais para pintura de qualidade</h2>
+                <a href="produtos.html" class="btn">Ver Produtos</a>
             </div>
         </div>
     </section>
 
-    <!-- PRODUTOS EM DESTAQUE -->
     <section class="products-section">
         <div class="container">
-            <div class="section-title">
-                <h2>Produtos em Destaque</h2>
-                <p>Nossos melhores produtos selecionados para você</p>
-            </div>
+            <h2>Produtos em Destaque</h2>
             <div class="products-grid" id="destaques"></div>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="main-footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
                     <h3>Espaço Cor</h3>
-                    <p>Materiais para pintura de qualidade desde 2024.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h3>Links Rápidos</h3>
-                    <ul>
-                        <li><a href="index.html">Início</a></li>
-                        <li><a href="sobre.html">Sobre Nós</a></li>
-                        <li><a href="produtos.html">Nossos Produtos</a></li>
-                        <li><a href="contato.html">Contato</a></li>
-                    </ul>
+                    <p>Materiais para pintura desde 2024.</p>
                 </div>
                 <div class="footer-col">
                     <h3>Contato</h3>
@@ -95,14 +61,23 @@
                         <li><i class="fas fa-envelope"></i> contato@espacocor.com.br</li>
                     </ul>
                 </div>
+                <div class="footer-col">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="sobre.html">Sobre</a></li>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 Espaço Cor. Todos os direitos reservados.</p>
                 <div class="payment-methods">
-                    <i class="fab fa-cc-visa"></i>
-                    <i class="fab fa-cc-mastercard"></i>
-                    <i class="fab fa-pix"></i>
+                    <i class="fas fa-credit-card"></i>
                     <i class="fas fa-barcode"></i>
+                    <i class="fas fa-money-bill-wave"></i>
+                    <i class="fab fa-pix"></i>
                 </div>
             </div>
         </div>

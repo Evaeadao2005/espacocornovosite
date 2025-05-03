@@ -3,22 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Entre em contato com a Espaço Cor para orçamentos e dúvidas sobre materiais para pintura.">
     <title>Contato | Espaço Cor</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="main-header">
-        <div class="container header-container">
+        <div class="container">
             <div class="logo">
-                <img src="assets/logo.png" alt="Espaço Cor">
-                <div class="logo-text">
-                    <a href="index.html">Espaço Cor</a>
-                    <span>Materiais para pintura</span>
-                </div>
+                <a href="index.html">Espaço Cor</a>
+                <span>Materiais para pintura</span>
             </div>
-            
             <nav class="main-nav">
                 <ul>
                     <li><a href="index.html">Início</a></li>
@@ -27,136 +24,94 @@
                     <li class="active"><a href="contato.html">Contato</a></li>
                 </ul>
             </nav>
-            
-            <div class="search-container">
-                <form class="search-form">
-                    <input type="text" class="search-input" placeholder="Pesquisar produtos...">
-                    <button type="submit" class="search-btn">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
+            <div class="header-actions">
+                <button class="btn-icon search-btn"><i class="fas fa-search"></i></button>
             </div>
         </div>
     </header>
 
-    <main>
-        <section class="page-header">
-            <div class="container">
-                <h1>Fale Conosco</h1>
-                <p>Tire suas dúvidas ou solicite um orçamento</p>
-            </div>
-        </section>
+    <section class="page-header">
+        <div class="container">
+            <h1>Contato</h1>
+        </div>
+    </section>
 
-        <section class="contact-section">
-            <div class="container">
-                <div class="contact-grid">
-                    <div class="contact-info">
-                        <h2><i class="fas fa-info-circle"></i> Informações</h2>
-                        <ul>
-                            <li>
-                                <i class="fas fa-map-marker-alt"></i>
-                                <strong>Endereço:</strong>
-                                <span>Av. Principal, 1234 - Centro, São Paulo/SP</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-phone"></i>
-                                <strong>Telefone:</strong>
-                                <span>(11) 1234-5678</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-envelope"></i>
-                                <strong>Email:</strong>
-                                <span>contato@espacocor.com.br</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-clock"></i>
-                                <strong>Horário:</strong>
-                                <span>Seg-Sex: 8h às 18h | Sáb: 9h às 13h</span>
-                            </li>
-                        </ul>
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Fale conosco</h2>
+                    <ul>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <strong>Endereço:</strong>
+                            <span>Av. Principal, 1234 - Centro, São Paulo/SP</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <strong>Telefone:</strong>
+                            <span>(11) 1234-5678</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <strong>Email:</strong>
+                            <span>contato@espacocor.com.br</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <strong>Horário:</strong>
+                            <span>Seg-Sex: 8h às 18h | Sáb: 9h às 13h</span>
+                        </li>
+                    </ul>
 
-                        <div class="social-links">
-                            <h3>Redes Sociais</h3>
-                            <div class="social-buttons">
-                                <a href="#" class="social-btn whatsapp">
-                                    <i class="fab fa-whatsapp"></i> WhatsApp
-                                </a>
-                                <a href="#" class="social-btn instagram">
-                                    <i class="fab fa-instagram"></i> Instagram
-                                </a>
-                            </div>
+                    <div class="social-links">
+                        <a href="https://wa.me/551112345678" class="social-btn whatsapp-btn" target="_blank">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                        <a href="https://instagram.com/espacocor" class="social-btn instagram-btn" target="_blank">
+                            <i class="fab fa-instagram"></i> Instagram
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h2>Envie sua mensagem</h2>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" placeholder="Seu nome" required>
                         </div>
-                    </div>
-
-                    <div class="contact-form">
-                        <h2><i class="fas fa-envelope"></i> Formulário</h2>
-                        <form id="contactForm">
-                            <div class="form-group">
-                                <input type="text" id="name" placeholder="Seu nome completo" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" id="email" placeholder="Seu melhor email" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="tel" id="phone" placeholder="Telefone (opcional)">
-                            </div>
-                            <div class="form-group">
-                                <select id="subject" required>
-                                    <option value="" disabled selected>Assunto</option>
-                                    <option value="orcamento">Orçamento</option>
-                                    <option value="duvida">Dúvida</option>
-                                    <option value="reclamacao">Reclamação</option>
-                                    <option value="outro">Outro</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <textarea id="message" rows="5" placeholder="Sua mensagem" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-block">
-                                <i class="fas fa-paper-plane"></i> Enviar Mensagem
-                            </button>
-                        </form>
-                    </div>
+                        <div class="form-group">
+                            <input type="email" id="email" placeholder="Seu email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" placeholder="Seu telefone">
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" rows="5" placeholder="Sua mensagem" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Enviar Mensagem</button>
+                    </form>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="map-section">
-            <div class="container">
-                <h2><i class="fas fa-map-marked-alt"></i> Onde Estamos</h2>
-                <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.0754267452926!2d-46.65342658447564!3d-23.565734367638155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sAv.%20Paulista%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr" 
-                            width="100%" 
-                            height="450" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy">
-                    </iframe>
-                </div>
-            </div>
-        </section>
-    </main>
+    <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.0754267452926!2d-46.65342658447564!3d-23.565734367638155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sAv.%20Paulista%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr" 
+                width="100%" 
+                height="400" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+        </iframe>
+    </div>
 
     <footer class="main-footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
                     <h3>Espaço Cor</h3>
-                    <p>Materiais para pintura de qualidade desde 2024.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h3>Links Rápidos</h3>
-                    <ul>
-                        <li><a href="index.html">Início</a></li>
-                        <li><a href="sobre.html">Sobre Nós</a></li>
-                        <li><a href="produtos.html">Nossos Produtos</a></li>
-                        <li><a href="contato.html">Contato</a></li>
-                    </ul>
+                    <p>Materiais para pintura desde 2024.</p>
                 </div>
                 <div class="footer-col">
                     <h3>Contato</h3>
@@ -166,14 +121,23 @@
                         <li><i class="fas fa-envelope"></i> contato@espacocor.com.br</li>
                     </ul>
                 </div>
+                <div class="footer-col">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="sobre.html">Sobre</a></li>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 Espaço Cor. Todos os direitos reservados.</p>
                 <div class="payment-methods">
-                    <i class="fab fa-cc-visa"></i>
-                    <i class="fab fa-cc-mastercard"></i>
-                    <i class="fab fa-pix"></i>
+                    <i class="fas fa-credit-card"></i>
                     <i class="fas fa-barcode"></i>
+                    <i class="fas fa-money-bill-wave"></i>
+                    <i class="fab fa-pix"></i>
                 </div>
             </div>
         </div>

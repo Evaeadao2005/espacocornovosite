@@ -1,123 +1,62 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Elementos globais
+document.addEventListener("DOMContentLoaded", function () {
     const produtosContainer = document.getElementById("produtos");
     const destaquesContainer = document.getElementById("destaques");
-    const searchForm = document.querySelector(".search-form");
-    const searchInput = document.querySelector(".search-input");
-    const categoryLinks = document.querySelectorAll(".category-list a");
-    const sortSelect = document.getElementById("sortBy");
-    
+    const searchBtn = document.querySelector(".search-btn");
+    const searchOverlay = document.querySelector(".search-overlay");
+    const closeSearch = document.querySelector(".close-search");
+
     let produtos = [];
-    
-    // Carregar produtos
+
+    // Carrega os produtos
     function loadProducts() {
         fetch('produtos.json')
             .then(response => response.json())
             .then(data => {
                 produtos = data;
-                if (destaquesContainer) displayProducts(getFeaturedProducts(), destaquesContainer);
-                if (produtosContainer) displayProducts(produtos, produtosContainer);
+                if (destaquesContainer) exibirDestaques(produtos, destaquesContainer);
+                if (produtosContainer) exibirProdutos(produtos, produtosContainer);
             })
             .catch(error => console.error("Erro ao carregar produtos:", error));
     }
-    
-    // Exibir produtos
-    function displayProducts(products, container) {
+
+    // Exibe os produtos
+    function exibirProdutos(produtos, container) {
         if (!container) return;
         
-        container.innerHTML = products.map(product => `
-            <div class="product-card" data-category="${product.categoria}">
+        container.innerHTML = produtos.map(produto => `
+            <div class="product-card">
                 <div class="product-image">
-                    <img src="assets/${product.imagem}" alt="${product.nome}" loading="lazy">
+                    <img src="assets/${produto.imagem}" alt="${produto.nome}" loading="lazy">
                 </div>
                 <div class="product-info">
-                    <h3>${product.nome}</h3>
-                    <p>${product.descricao}</p>
-                    <a href="https://wa.me/551112345678?text=Olá, gostaria de saber mais sobre ${encodeURIComponent(product.nome)}" 
-                       class="btn whatsapp-btn" target="_blank">
-                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    <h3>${produto.nome}</h3>
+                    <p>${produto.descricao}</p>
+                    <a href="https://wa.me/551112345678?text=Olá, gostaria de saber mais sobre ${encodeURIComponent(produto.nome)}" class="btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> Pedir pelo WhatsApp
                     </a>
                 </div>
             </div>
         `).join('');
     }
-    
-    // Obter produtos em destaque
-    function getFeaturedProducts() {
-        return produtos.filter(product => product.destaque);
+
+    // Exibe os produtos em destaque
+    function exibirDestaques(produtos, container) {
+        if (!container) return;
+        const produtosDestaque = produtos.filter(produto => produto.destaque);
+        exibirProdutos(produtosDestaque, container);
     }
-    
-    // Filtrar por categoria
-    function filterByCategory(category) {
-        return category === "todos" 
-            ? produtos 
-            : produtos.filter(product => product.categoria === category);
-    }
-    
-    // Ordenar produtos
-    function sortProducts(products, criteria) {
-        const sorted = [...products];
-        switch(criteria) {
-            case "name-asc": return sorted.sort((a, b) => a.nome.localeCompare(b.nome));
-            case "name-desc": return sorted.sort((a, b) => b.nome.localeCompare(a.nome));
-            default: return sorted;
-        }
-    }
-    
-    // Pesquisar produtos
-    function searchProducts(query) {
-        if (!query) return produtos;
-        const lowerQuery = query.toLowerCase();
-        return produtos.filter(product => 
-            product.nome.toLowerCase().includes(lowerQuery) || 
-            product.descricao.toLowerCase().includes(lowerQuery)
-        );
-    }
-    
-    // Evento de pesquisa
-    if (searchForm) {
-        searchForm.addEventListener("submit", function(e) {
-            e.preventDefault();
-            const query = searchInput.value.trim();
-            const results = searchProducts(query);
-            displayProducts(results, produtosContainer);
-        });
-    }
-    
-    // Filtros de categoria
-    if (categoryLinks) {
-        categoryLinks.forEach(link => {
-            link.addEventListener("click", function(e) {
-                e.preventDefault();
-                
-                // Ativar link clicado
-                categoryLinks.forEach(l => l.classList.remove("active"));
-                this.classList.add("active");
-                
-                // Filtrar e exibir produtos
-                const category = this.dataset.category;
-                let filtered = filterByCategory(category);
-                
-                // Manter ordenação se existir
-                if (sortSelect) {
-                    filtered = sortProducts(filtered, sortSelect.value);
-                }
-                
-                displayProducts(filtered, produtosContainer);
-            });
-        });
-    }
-    
-    // Ordenação
-    if (sortSelect) {
-        sortSelect.addEventListener("change", function() {
-            const activeCategory = document.querySelector(".category-list a.active")?.dataset.category || "todos";
-            let filtered = filterByCategory(activeCategory);
-            filtered = sortProducts(filtered, this.value);
-            displayProducts(filtered, produtosContainer);
-        });
-    }
-    
-    // Inicializar
+
+    // Inicialização
     loadProducts();
+
+    // Event listeners
+    if (searchBtn && searchOverlay && closeSearch) {
+        searchBtn.addEventListener("click", () => {
+            searchOverlay.classList.add("show");
+        });
+        
+        closeSearch.addEventListener("click", () => {
+            searchOverlay.classList.remove("show");
+        });
+    }
 });

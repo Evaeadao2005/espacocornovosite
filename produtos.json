@@ -1,38 +1,26 @@
 [
     {
         "id": 1,
-        "nome": "Tinta Acrílica Premium",
+        "nome": "Tinta Acrílica Fosca",
         "categoria": "parede",
-        "descricao": "Cobertura superior, lavável e disponível em 25 cores. Rendimento de 50m² por galão.",
+        "descricao": "Tinta de alta cobertura para paredes internas, acabamento fosco e lavável.",
         "imagem": "tinta-branca.jpg",
-        "destaque": true,
-        "preco": 189.90
+        "destaque": true
     },
     {
         "id": 2,
-        "nome": "Esmalte Sintético para Madeira",
+        "nome": "Tinta Esmalte para Madeira",
         "categoria": "madeira",
-        "descricao": "Proteção UV, secagem rápida (2h). Disponível em 18 cores.",
+        "descricao": "Proteção duradoura para madeira interna e externa, disponível em diversas cores.",
         "imagem": "tinta-marrom.jpg",
-        "destaque": false,
-        "preco": 149.90
+        "destaque": false
     },
     {
         "id": 3,
-        "nome": "Tinta Anticorrosiva para Metais",
+        "nome": "Tinta Anticorrosiva para Metal",
         "categoria": "metal",
-        "descricao": "Proteção contra ferrugem por até 5 anos. Aplicação direta sobre ferrugem.",
+        "descricao": "Proteção eficiente contra ferrugem para superfícies metálicas.",
         "imagem": "tinta-prata.jpg",
-        "destaque": true,
-        "preco": 219.90
-    },
-    {
-        "id": 4,
-        "nome": "Selador para Pisos",
-        "categoria": "piso",
-        "descricao": "Proteção contra umidade e abrasão. Para concreto e madeira.",
-        "imagem": "tinta-branca.jpg",
-        "destaque": true,
-        "preco": 279.90
+        "destaque": true
     }
 ]
