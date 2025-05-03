@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Espaço Cor - Tintas profissionais para construção. Qualidade e variedade para seu projeto.">
-    <title>Espaço Cor - Tintas Profissionais</title>
+    <title>Espaço Cor | Tintas & Automotivos - Iguatu-CE</title>
+    <meta name="description" content="Loja de tintas para construção e produtos automotivos em Iguatu. Atendemos profissionais e clientes residenciais.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,93 +12,95 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Header Fixo -->
     <header class="main-header">
-        <div class="header-container container">
+        <div class="container">
             <a href="index.html" class="logo">
-                <div class="logo-text">
-                    <span class="brand">Espaço Cor</span>
-                    <span class="tagline">Tintas profissionais</span>
-                </div>
+                <span class="brand">Espaço Cor</span>
+                <span class="tagline">Tintas & Automotivos</span>
             </a>
             
             <nav class="main-nav">
                 <ul>
                     <li class="active"><a href="index.html">Início</a></li>
-                    <li><a href="sobre.html">Sobre</a></li>
                     <li><a href="produtos.html">Produtos</a></li>
-                    <li><a href="#contato">Contato</a></li>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="contato.html">Contato</a></li>
                 </ul>
             </nav>
             
             <div class="search-container">
                 <input type="text" class="search-input" placeholder="Buscar produtos...">
-                <i class="fas fa-search search-icon"></i>
+                <button class="search-btn"><i class="fas fa-search"></i></button>
             </div>
         </div>
     </header>
 
+    <!-- Banner Principal -->
     <section class="hero-banner">
         <div class="container">
             <div class="hero-content">
-                <h1>Tintas profissionais para sua obra</h1>
-                <p>Qualidade comprovada para resultados duradouros</p>
-                <a href="produtos.html" class="btn btn-primary">Ver Produtos</a>
+                <h1>Tintas Profissionais & Acessórios Automotivos</h1>
+                <p>As melhores marcas para sua obra ou veículo em Iguatu</p>
+                <a href="produtos.html" class="btn btn-primary">Ver Catálogo</a>
             </div>
         </div>
     </section>
 
-    <section class="products-section">
+    <!-- Destaques -->
+    <section class="highlights">
         <div class="container">
-            <h2 class="section-title">Produtos em Destaque</h2>
-            <div class="products-grid" id="destaques"></div>
-            <div class="text-center">
-                <a href="produtos.html" class="btn btn-secondary">Ver todos os produtos</a>
+            <div class="section-title">
+                <h2>Nossos Destaques</h2>
+                <p>Confira os produtos mais procurados</p>
+            </div>
+            
+            <div class="highlight-grid" id="destaques">
+                <!-- Produtos em destaque serão carregados via JS -->
             </div>
         </div>
     </section>
 
-    <footer class="main-footer" id="contato">
+    <!-- Rodapé -->
+    <footer class="main-footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-col footer-about">
+                <div class="footer-col">
                     <h3>Espaço Cor</h3>
-                    <p>Tintas profissionais de alta qualidade para construção civil e reformas.</p>
-                    <div class="footer-social">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <p>Tintas e produtos automotivos de qualidade em Iguatu.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
                     </div>
                 </div>
                 
-                <div class="footer-col footer-links">
-                    <h3>Links Rápidos</h3>
+                <div class="footer-col">
+                    <h3>Horário de Funcionamento</h3>
                     <ul>
-                        <li><a href="index.html">Início</a></li>
-                        <li><a href="sobre.html">Sobre Nós</a></li>
-                        <li><a href="produtos.html">Nossos Produtos</a></li>
-                        <li><a href="#contato">Fale Conosco</a></li>
+                        <li>Seg-Sex: 8:00 - 18:00</li>
+                        <li>Sábado: 8:00 - 12:00</li>
+                        <li>Domingo: Fechado</li>
                     </ul>
                 </div>
                 
-                <div class="footer-col footer-contact">
+                <div class="footer-col">
                     <h3>Contato</h3>
                     <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> Av. das Tintas, 1234 - São Paulo/SP</li>
-                        <li><i class="fas fa-phone"></i> (11) 1234-5678</li>
-                        <li><i class="fab fa-whatsapp"></i> (11) 98765-4321</li>
-                        <li><i class="fas fa-envelope"></i> contato@espacocor.com.br</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Av. Dr. José Alves, 123 - Centro, Iguatu-CE</li>
+                        <li><i class="fas fa-phone"></i> (88) 9999-9999</li>
+                        <li><i class="fab fa-whatsapp"></i> (88) 99999-9999</li>
                     </ul>
                 </div>
             </div>
             
             <div class="footer-bottom">
+                <p>&copy; 2023 Espaço Cor. Todos os direitos reservados.</p>
                 <div class="payment-methods">
                     <span><i class="fas fa-credit-card"></i> Cartão</span>
-                    <span><i class="fas fa-qrcode"></i> PIX</span>
+                    <span><i class="fas fa-pix"></i> PIX</span>
                     <span><i class="fas fa-barcode"></i> Boleto</span>
-                    <span><i class="fas fa-money-bill-wave"></i> Dinheiro</span>
                 </div>
-                <p class="copyright">&copy; 2023 Espaço Cor. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
