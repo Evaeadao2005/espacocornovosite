@@ -5,80 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Espaço Cor - Tintas profissionais para construção. Qualidade e variedade para seu projeto.">
     <title>Espaço Cor - Tintas Profissionais</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-   <header class="main-header">
-  <div class="header-container container">
-    <a href="index.html" class="logo">
-      <div class="logo-text">
-        <span class="brand">Espaço Cor</span>
-        <span class="tagline">Tintas profissionais</span>
-      </div>
-    </a>
-    
-    <nav class="main-nav">
-      <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="sobre.html">Sobre</a></li>
-        <li><a href="produtos.html">Produtos</a></li>
-        <li><a href="#contato">Contato</a></li>
-      </ul>
-    </nav>
-    
-    <div class="search-container">
-      <input type="text" class="search-input" placeholder="Buscar produtos...">
-      <i class="fas fa-search search-icon"></i>
-    </div>
-  </div>
-</header>
+    <header class="main-header">
+        <div class="header-container container">
+            <a href="index.html" class="logo">
+                <div class="logo-text">
+                    <span class="brand">Espaço Cor</span>
+                    <span class="tagline">Tintas profissionais</span>
+                </div>
+            </a>
+            
+            <nav class="main-nav">
+                <ul>
+                    <li class="active"><a href="index.html">Início</a></li>
+                    <li><a href="sobre.html">Sobre</a></li>
+                    <li><a href="produtos.html">Produtos</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Buscar produtos...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </div>
+    </header>
 
     <section class="hero-banner">
         <div class="container">
             <div class="hero-content">
-                <h2>Tintas profissionais para sua obra</h2>
+                <h1>Tintas profissionais para sua obra</h1>
                 <p>Qualidade comprovada para resultados duradouros</p>
-                <a href="produtos.html" class="btn">Ver Produtos</a>
+                <a href="produtos.html" class="btn btn-primary">Ver Produtos</a>
             </div>
         </div>
     </section>
 
     <section class="products-section">
         <div class="container">
-            <h2>Produtos em Destaque</h2>
+            <h2 class="section-title">Produtos em Destaque</h2>
             <div class="products-grid" id="destaques"></div>
-            <a href="produtos.html" class="btn">Ver todos os produtos</a>
+            <div class="text-center">
+                <a href="produtos.html" class="btn btn-secondary">Ver todos os produtos</a>
+            </div>
         </div>
     </section>
 
     <footer class="main-footer" id="contato">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-col">
+                <div class="footer-col footer-about">
                     <h3>Espaço Cor</h3>
-                    <p>Tintas profissionais desde 2024</p>
+                    <p>Tintas profissionais de alta qualidade para construção civil e reformas.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
                 </div>
-                <div class="footer-col">
+                
+                <div class="footer-col footer-links">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="sobre.html">Sobre Nós</a></li>
+                        <li><a href="produtos.html">Nossos Produtos</a></li>
+                        <li><a href="#contato">Fale Conosco</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col footer-contact">
                     <h3>Contato</h3>
                     <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Av. das Tintas, 1234 - São Paulo/SP</li>
                         <li><i class="fas fa-phone"></i> (11) 1234-5678</li>
                         <li><i class="fab fa-whatsapp"></i> (11) 98765-4321</li>
                         <li><i class="fas fa-envelope"></i> contato@espacocor.com.br</li>
                     </ul>
                 </div>
             </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2025 Espaço Cor. Aceitamos:</p>
                 <div class="payment-methods">
-                    <span>Cartão</span>
-                    <span>PIX</span>
-                    <span>Boleto</span>
-                    <span>Dinheiro</span>
+                    <span><i class="fas fa-credit-card"></i> Cartão</span>
+                    <span><i class="fas fa-qrcode"></i> PIX</span>
+                    <span><i class="fas fa-barcode"></i> Boleto</span>
+                    <span><i class="fas fa-money-bill-wave"></i> Dinheiro</span>
                 </div>
+                <p class="copyright">&copy; 2023 Espaço Cor. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
