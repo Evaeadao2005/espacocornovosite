@@ -1,102 +1,157 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const produtosContainer = document.getElementById("produtos");
-    const destaquesContainer = document.getElementById("destaques");
-    let produtos = [];
-
-    // Carrega produtos
-    function loadProducts() {
-        fetch('produtos.json')
-            .then(response => response.json())
-            .then(data => {
-                produtos = data;
-                if (destaquesContainer) showFeatured(produtos);
-                if (produtosContainer) showProducts(produtos);
-                initFilters();
-            });
-    }
-
-    // Mostra produtos em destaque
-    function showFeatured(products) {
-        const featured = products.filter(p => p.destaque);
-        showProducts(featured, destaquesContainer);
-    }
-
-    // Mostra produtos
-    function showProducts(products, container = produtosContainer) {
-        if (!container) return;
-        
-        container.innerHTML = products.map(product => `
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="assets/${product.imagem}" alt="${product.nome}">
-                </div>
-                <div class="product-info">
-                    <h3>${product.nome}</h3>
-                    <p>${product.descricao}</p>
-                    <a href="https://wa.me/5511987654321?text=Olá, gostaria de saber mais sobre ${encodeURIComponent(product.nome)}" 
-                       class="btn whatsapp-btn" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Pedir pelo WhatsApp
-                    </a>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    // Inicializa filtros
-    function initFilters() {
-        const categoryLinks = document.querySelectorAll(".category-list a");
-        const sortSelect = document.getElementById("sortBy");
-
-        categoryLinks.forEach(link => {
-            link.addEventListener("click", (e) => {
-                e.preventDefault();
-                categoryLinks.forEach(l => l.classList.remove("active"));
-                link.classList.add("active");
-                filterProducts();
-            });
-        });
-
-        if (sortSelect) {
-            sortSelect.addEventListener("change", filterProducts);
-        }
-    }
-
-    // Filtra produtos
-    function filterProducts() {
-        const activeCategory = document.querySelector(".category-list a.active").dataset.category;
-        const sortBy = document.getElementById("sortBy")?.value || "name-asc";
-
-        let filtered = produtos.filter(p => 
-            activeCategory === "todos" || p.categoria === activeCategory
-        );
-
-        filtered = sortProducts(filtered, sortBy);
-        showProducts(filtered);
-    }
-
-    // Ordena produtos
-    function sortProducts(products, criterion) {
-        return [...products].sort((a, b) => {
-            if (criterion === "name-asc") return a.nome.localeCompare(b.nome);
-            if (criterion === "name-desc") return b.nome.localeCompare(a.nome);
-            return 0;
-        });
-    }
-
-    // Inicializa busca
-    const searchBtn = document.querySelector(".search-btn");
-    if (searchBtn) {
-        searchBtn.addEventListener("click", () => {
-            const term = prompt("O que você está procurando?");
-            if (term) {
-                const results = produtos.filter(p => 
-                    p.nome.toLowerCase().includes(term.toLowerCase()) || 
-                    p.descricao.toLowerCase().includes(term.toLowerCase())
-                );
-                showProducts(results);
-            }
-        });
-    }
-
-    loadProducts();
+document.addEventListener("DOMContentLoaded", function() {
+  // Carrega produtos
+  loadProducts();
+  
+  // Inicializa filtros
+  initFilters();
+  
+  // Busca integrada
+  initSearch();
 });
+
+// Carrega produtos do JSON
+async function loadProducts() {
+  try {
+    const response = await fetch('produtos.json');
+    const produtos = await response.json();
+    
+    // Exibe produtos na página inicial
+    if (document.getElementById('destaques')) {
+      const destaques = produtos.filter(p => p.destaque);
+      renderProducts(destaques, 'destaques');
+    }
+    
+    // Exibe todos os produtos na página de produtos
+    if (document.getElementById('produtos')) {
+      renderProducts(produtos, 'produtos');
+    }
+    
+  } catch (error) {
+    console.error('Erro ao carregar produtos:', error);
+  }
+}
+
+// Renderiza produtos no container especificado
+function renderProducts(products, containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  
+  container.innerHTML = products.map(product => `
+    <div class="product-card">
+      ${product.destaque ? '<span class="product-badge">Destaque</span>' : ''}
+      <div class="product-image">
+        <img src="assets/${product.imagem}" alt="${product.nome}" loading="lazy">
+      </div>
+      <div class="product-info">
+        <span class="product-category">${formatCategory(product.categoria)}</span>
+        <h3 class="product-title">${product.nome}</h3>
+        <p class="product-description">${product.descricao}</p>
+        <div class="product-actions">
+          <a href="https://wa.me/5511999999999?text=Olá, gostaria de informações sobre ${encodeURIComponent(product.nome)}" 
+             class="btn whatsapp-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Formata categoria para exibição
+function formatCategory(category) {
+  const categories = {
+    'parede': 'Parede',
+    'madeira': 'Madeira',
+    'metal': 'Metal'
+  };
+  return categories[category] || category;
+}
+
+// Inicializa sistema de filtros
+function initFilters() {
+  const categoryButtons = document.querySelectorAll('.category-btn');
+  const sortSelect = document.getElementById('sortBy');
+  
+  // Filtro por categoria
+  if (categoryButtons) {
+    categoryButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        categoryButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        filterProducts();
+      });
+    });
+  }
+  
+  // Ordenação
+  if (sortSelect) {
+    sortSelect.addEventListener('change', filterProducts);
+  }
+}
+
+// Filtra produtos
+function filterProducts() {
+  const activeCategory = document.querySelector('.category-btn.active')?.dataset.category || 'todos';
+  const sortBy = document.getElementById('sortBy')?.value || 'name-asc';
+  
+  fetch('produtos.json')
+    .then(response => response.json())
+    .then(products => {
+      // Filtra por categoria
+      let filtered = activeCategory === 'todos' 
+        ? products 
+        : products.filter(p => p.categoria === activeCategory);
+      
+      // Ordena
+      filtered = sortProducts(filtered, sortBy);
+      
+      // Exibe
+      renderProducts(filtered, 'produtos');
+    });
+}
+
+// Ordena produtos
+function sortProducts(products, criterion) {
+  return [...products].sort((a, b) => {
+    if (criterion === 'name-asc') return a.nome.localeCompare(b.nome);
+    if (criterion === 'name-desc') return b.nome.localeCompare(a.nome);
+    return 0;
+  });
+}
+
+// Sistema de busca
+function initSearch() {
+  const searchInput = document.querySelector('.search-input');
+  
+  if (searchInput) {
+    searchInput.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') {
+        performSearch(searchInput.value);
+      }
+    });
+    
+    document.querySelector('.search-icon').addEventListener('click', () => {
+      performSearch(searchInput.value);
+    });
+  }
+}
+
+// Executa busca
+function performSearch(term) {
+  if (!term.trim()) return;
+  
+  fetch('produtos.json')
+    .then(response => response.json())
+    .then(products => {
+      const results = products.filter(p => 
+        p.nome.toLowerCase().includes(term.toLowerCase()) || 
+        p.descricao.toLowerCase().includes(term.toLowerCase())
+      );
+      
+      if (document.getElementById('produtos')) {
+        renderProducts(results, 'produtos');
+      } else {
+        window.location.href = `produtos.html?search=${encodeURIComponent(term)}`;
+      }
+    });
+}
