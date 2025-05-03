@@ -3,33 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Espaço Cor - Página Inicial</title>
+    <meta name="description" content="Espaço Cor - As melhores tintas para sua casa. Qualidade, variedade e preços competitivos.">
+    <meta name="keywords" content="tintas, pintura, construção, reforma, cores, parede, madeira, metal">
+    <title>Espaço Cor - Transformando Ambientes com Cores</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Bem-vindo à Espaço Cor</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Início</a></li>
-                <li><a href="sobre.html">Sobre Nós</a></li>
-                <li><a href="produtos.html">Produtos</a></li>
-            </ul>
-        </nav>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1>Espaço Cor</h1>
+                <span class="tagline">Transformando ambientes com cores</span>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="active"><a href="index.html">Início</a></li>
+                    <li><a href="sobre.html">Sobre Nós</a></li>
+                    <li><a href="produtos.html">Produtos</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="btn-icon"><i class="fas fa-search"></i></button>
+                <button class="btn-icon"><i class="fas fa-user"></i></button>
+                <button class="btn-icon cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </button>
+            </div>
+        </div>
     </header>
 
-    <section class="banner">
-        <h2>As melhores tintas para sua casa!</h2>
-        <p>Confira nossas promoções e novidades.</p>
+    <section class="hero-banner">
+        <div class="container">
+            <div class="hero-content">
+                <h2>As melhores tintas para sua casa</h2>
+                <p>Qualidade profissional para resultados excepcionais</p>
+                <a href="produtos.html" class="btn btn-primary">Ver Produtos</a>
+            </div>
+        </div>
     </section>
 
-    <section class="destaques">
-        <h2>Produtos em Destaque</h2>
-        <div class="produtos-container" id="destaques"></div>
+    <section class="features-section">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-truck"></i>
+                    <h3>Entrega Rápida</h3>
+                    <p>Entregamos em até 48h na região metropolitana</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-paint-roller"></i>
+                    <h3>Qualidade Garantida</h3>
+                    <p>Produtos testados e aprovados por profissionais</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-palette"></i>
+                    <h3>Consultoria de Cores</h3>
+                    <p>Nossos especialistas ajudam você a escolher</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <footer>
-        <p>&copy; 2025 Espaço Cor - Loja de Tintas. Todos os direitos reservados.</p>
+    <section class="products-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Produtos em Destaque</h2>
+                <a href="produtos.html" class="btn-link">Ver todos <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="products-grid" id="destaques"></div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="container">
+            <h2>O que nossos clientes dizem</h2>
+            <div class="testimonials-slider">
+                <div class="testimonial">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"A tinta branca fosca superou minhas expectativas. Cobriu perfeitamente em uma única demão!"</p>
+                    <div class="client-info">
+                        <img src="assets/client1.jpg" alt="Cliente satisfeito">
+                        <span>Carlos Silva</span>
+                    </div>
+                </div>
+                <!-- Mais depoimentos aqui -->
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Precisa de ajuda para escolher?</h2>
+            <p>Nossa equipe está pronta para te auxiliar na seleção perfeita</p>
+            <a href="#contato" class="btn btn-secondary">Fale conosco</a>
+        </div>
+    </section>
+
+    <footer class="main-footer" id="contato">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Espaço Cor</h3>
+                    <p>Transformando ambientes com cores desde 2024.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Links Úteis</h3>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="sobre.html">Sobre Nós</a></li>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contato</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Av. Principal, 1234</li>
+                        <li><i class="fas fa-phone"></i> (11) 1234-5678</li>
+                        <li><i class="fas fa-envelope"></i> contato@espacocor.com.br</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Assine para receber promoções e dicas</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Seu e-mail">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2025 Espaço Cor - Loja de Tintas. Todos os direitos reservados.</p>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                    <i class="fas fa-barcode"></i>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <script src="script.js"></script>
