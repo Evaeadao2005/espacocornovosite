@@ -1,25 +1,25 @@
 [
     {
         "id": 1,
-        "nome": "Tinta Branca Fosca",
+        "nome": "Tinta Acrílica Fosca",
         "categoria": "parede",
-        "descricao": "Tinta de alta qualidade para paredes internas.",
+        "descricao": "Tinta de alta cobertura para paredes internas, acabamento fosco e lavável.",
         "imagem": "tinta-branca.jpg",
         "destaque": true
     },
     {
         "id": 2,
-        "nome": "Tinta Marrom para Madeira",
+        "nome": "Tinta Esmalte para Madeira",
         "categoria": "madeira",
-        "descricao": "Tinta especial para madeira, resistente à água.",
+        "descricao": "Proteção duradoura para madeira interna e externa, disponível em diversas cores.",
         "imagem": "tinta-marrom.jpg",
         "destaque": false
     },
     {
         "id": 3,
-        "nome": "Tinta Prata para Metal",
+        "nome": "Tinta Anticorrosiva para Metal",
         "categoria": "metal",
-        "descricao": "Tinta anticorrosiva para superfícies metálicas.",
+        "descricao": "Proteção eficiente contra ferrugem para superfícies metálicas.",
         "imagem": "tinta-prata.jpg",
         "destaque": true
     }
