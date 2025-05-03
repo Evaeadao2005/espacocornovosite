@@ -3,7 +3,6 @@
         "id": 1,
         "nome": "Tinta Branca Fosca",
         "categoria": "parede",
-        "preco": 50.00,
         "descricao": "Tinta de alta qualidade para paredes internas.",
         "imagem": "tinta-branca.jpg",
         "destaque": true
@@ -12,7 +11,6 @@
         "id": 2,
         "nome": "Tinta Marrom para Madeira",
         "categoria": "madeira",
-        "preco": 70.00,
         "descricao": "Tinta especial para madeira, resistente à água.",
         "imagem": "tinta-marrom.jpg",
         "destaque": false
@@ -21,7 +19,6 @@
         "id": 3,
         "nome": "Tinta Prata para Metal",
         "categoria": "metal",
-        "preco": 90.00,
         "descricao": "Tinta anticorrosiva para superfícies metálicas.",
         "imagem": "tinta-prata.jpg",
         "destaque": true
