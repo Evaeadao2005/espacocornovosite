@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", function() {
   
   // Busca integrada
   initSearch();
+  
+  // Verifica parâmetros de URL para busca
+  checkUrlParams();
 });
 
 // Carrega produtos do JSON
@@ -14,6 +17,9 @@ async function loadProducts() {
   try {
     const response = await fetch('produtos.json');
     const produtos = await response.json();
+    
+    // Armazena produtos globalmente
+    window.produtos = produtos;
     
     // Exibe produtos na página inicial
     if (document.getElementById('destaques')) {
@@ -94,20 +100,15 @@ function filterProducts() {
   const activeCategory = document.querySelector('.category-btn.active')?.dataset.category || 'todos';
   const sortBy = document.getElementById('sortBy')?.value || 'name-asc';
   
-  fetch('produtos.json')
-    .then(response => response.json())
-    .then(products => {
-      // Filtra por categoria
-      let filtered = activeCategory === 'todos' 
-        ? products 
-        : products.filter(p => p.categoria === activeCategory);
-      
-      // Ordena
-      filtered = sortProducts(filtered, sortBy);
-      
-      // Exibe
-      renderProducts(filtered, 'produtos');
-    });
+  let filtered = activeCategory === 'todos' 
+    ? window.produtos 
+    : window.produtos.filter(p => p.categoria === activeCategory);
+  
+  // Ordena
+  filtered = sortProducts(filtered, sortBy);
+  
+  // Exibe
+  renderProducts(filtered, 'produtos');
 }
 
 // Ordena produtos
@@ -140,18 +141,25 @@ function initSearch() {
 function performSearch(term) {
   if (!term.trim()) return;
   
-  fetch('produtos.json')
-    .then(response => response.json())
-    .then(products => {
-      const results = products.filter(p => 
-        p.nome.toLowerCase().includes(term.toLowerCase()) || 
-        p.descricao.toLowerCase().includes(term.toLowerCase())
-      );
-      
-      if (document.getElementById('produtos')) {
-        renderProducts(results, 'produtos');
-      } else {
-        window.location.href = `produtos.html?search=${encodeURIComponent(term)}`;
-      }
-    });
+  const results = window.produtos.filter(p => 
+    p.nome.toLowerCase().includes(term.toLowerCase()) || 
+    p.descricao.toLowerCase().includes(term.toLowerCase())
+  );
+  
+  if (document.getElementById('produtos')) {
+    renderProducts(results, 'produtos');
+  } else {
+    window.location.href = `produtos.html?search=${encodeURIComponent(term)}`;
+  }
+}
+
+// Verifica parâmetros de URL para busca
+function checkUrlParams() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const searchTerm = urlParams.get('search');
+  
+  if (searchTerm && document.getElementById('produtos')) {
+    document.querySelector('.search-input').value = searchTerm;
+    performSearch(searchTerm);
+  }
 }
