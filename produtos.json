@@ -22,7 +22,8 @@
         "descricao": "Indicado para pintura geral, parcial e retoques de veículos automotivos, transportes e outros. Fácil de usar e aplicar. Possui secagem rápida, alta resistência à intempéries naturais e agentes químicos.",
         "imagem": "tinta-prata.jpg",
         "destaque": true
-    } {
+    },
+    {
         "id": 4,
         "nome": "Diluente Thinner Pu 454 Poliéster Pu",
         "categoria": "automotivo",
