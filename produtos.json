@@ -20,15 +20,28 @@
         "nome": "Endurecedor 061 Pu Automotivo Lazzudur",
         "categoria": "automotivo",
         "descricao": "Indicado para pintura geral, parcial e retoques de veículos automotivos, transportes e outros. Fácil de usar e aplicar. Possui secagem rápida, alta resistência à intempéries naturais e agentes químicos.",
-        "imagem": "tinta-prata.jpg",
+        "imagem": "e0pal.jpg",
         "destaque": true
-    },
-    {
+    },{
         "id": 4,
         "nome": "Diluente Thinner Pu 454 Poliéster Pu",
         "categoria": "automotivo",
         "descricao": "Utilizado na diluição do Ultra 7000 Utrabase, Lazzudur BasePoliéster, Lazzudur Esmalte Poliuretano Alto Sólidos, Primers Poliuretanos, Vernizes e Tintas PU (Poliuretano).",
         "imagem": "dtp4pp.webp",
         "destaque": false
-    }
+    },{
+        "id": 5,
+        "nome": "Massa Poliester M3500 Lazzuril com Catalisador",
+        "categoria": "automotivo",
+        "descricao": "Indicado para correção de defeitos de superfície, substituindo a massa rápida e a massa plástica em uma única aplicação. Possui alto teor de Sólidos e elevado poder de enchimento, fácil aplicação, secagem rápida, excelente lixabilidade. Apresenta boa aderência na maioria dos substratos metálicos alumínios e galvanizado.",
+        "imagem": "mpml7cc.webp",
+        "destaque": false
+    },{
+        "id": 6,
+        "nome": "Primer Automotivo Pu Cinza 8200 Lazzuril Alto Sólidos C/cat",
+        "categoria": "automotivo",
+        "descricao": "Indicado para preparação de superfícies metálicas, especialmente para receber acabamentos como Lazzudur Poliéster e Lazzudur Alto Sólidos Poliuretano. Possui alto teor de Sólidos, excelente poder de enchimento, lixamento rápido e fácil e aderência.",
+        "imagem": "papc8lasc.webp",
+        "destaque": false
+    },
 ]

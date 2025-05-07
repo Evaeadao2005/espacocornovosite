@@ -87,7 +87,7 @@ h1, h2, h3, h4 {
 .main-header {
     background-color: var(--primary-color);
     color: white;
-    padding: 15px 0;
+    padding: 10px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -99,7 +99,19 @@ h1, h2, h3, h4 {
     justify-content: space-between;
     align-items: center;
 }
-
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.logo-img {
+    height: 50px; /* Ajuste conforme necessário */
+    width: auto;
+}
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
 .logo a {
     display: flex;
     flex-direction: column;
@@ -108,13 +120,22 @@ h1, h2, h3, h4 {
     color: white;
     text-decoration: none;
 }
-
 .logo span {
     font-size: 0.8rem;
     font-weight: 300;
     opacity: 0.8;
 }
-
+.logo-text a {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+}
+.logo-text span {
+    font-size: 0.8rem;
+    font-weight: 300;
+    opacity: 0.8;
+}
 .main-nav ul {
     display: flex;
     list-style: none;
@@ -593,7 +614,17 @@ h1, h2, h3, h4 {
         flex-direction: column;
         gap: 15px;
     }
+        .logo-img {
+        height: 40px; /* Tamanho menor para mobile */
+    }
     
+    .logo-text a {
+        font-size: 1.3rem;
+    }
+    
+    .logo-text span {
+        font-size: 0.7rem;
+    }
     .main-nav ul {
         flex-wrap: wrap;
         justify-content: center;

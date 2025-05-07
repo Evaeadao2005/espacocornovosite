@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="product-info">
                     <h3>${produto.nome}</h3>
                     <p>${produto.descricao}</p>
-                    <a href="https://wa.me/551112345678?text=Olá, gostaria de saber mais sobre ${encodeURIComponent(produto.nome)}" 
+                    <a href="https://wa.me/558896213293?text=Olá, gostaria de saber mais sobre ${encodeURIComponent(produto.nome)}" 
                        class="btn whatsapp-btn"
                        aria-label="Pedir ${produto.nome} pelo WhatsApp">
                         <i class="fab fa-whatsapp"></i> Pedir pelo WhatsApp
