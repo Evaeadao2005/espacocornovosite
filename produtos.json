@@ -1,26 +1,33 @@
 [
     {
         "id": 1,
-        "nome": "Tinta Acrílica Fosca",
-        "categoria": "parede",
-        "descricao": "Tinta de alta cobertura para paredes internas, acabamento fosco e lavável.",
-        "imagem": "tinta-branca.jpg",
+        "nome": "Verniz Poliuretano 8050 Componente A+B",
+        "categoria": "automotivo",
+        "descricao": "Possui alta resistência proporcionando um acabamento com excelente brilho e retenção de cor.",
+        "imagem": "vp8ca.jpeg",
         "destaque": true
     },
     {
         "id": 2,
-        "nome": "Tinta Esmalte para Madeira",
-        "categoria": "madeira",
-        "descricao": "Proteção duradoura para madeira interna e externa, disponível em diversas cores.",
-        "imagem": "tinta-marrom.jpg",
+        "nome": "Massa de Polir Base Água Nº2 – 106",
+        "categoria": "automotivo",
+        "descricao": "Produto base água indicado para realçar o brilho de pinturas. Recomendada para superfícies que requeiram menor abrasividade, ausência de riscos ou redução no efeito casca de laranja.",
+        "imagem": "mdpban1.jpg",
         "destaque": false
     },
     {
         "id": 3,
-        "nome": "Tinta Anticorrosiva para Metal",
-        "categoria": "metal",
-        "descricao": "Proteção eficiente contra ferrugem para superfícies metálicas.",
+        "nome": "Endurecedor 061 Pu Automotivo Lazzudur",
+        "categoria": "automotivo",
+        "descricao": "Indicado para pintura geral, parcial e retoques de veículos automotivos, transportes e outros. Fácil de usar e aplicar. Possui secagem rápida, alta resistência à intempéries naturais e agentes químicos.",
         "imagem": "tinta-prata.jpg",
         "destaque": true
-    }
+    } {
+        "id": 4,
+        "nome": "Diluente Thinner Pu 454 Poliéster Pu",
+        "categoria": "automotivo",
+        "descricao": "Utilizado na diluição do Ultra 7000 Utrabase, Lazzudur BasePoliéster, Lazzudur Esmalte Poliuretano Alto Sólidos, Primers Poliuretanos, Vernizes e Tintas PU (Poliuretano).",
+        "imagem": "dtp4pp.webp",
+        "destaque": false
+    },
 ]
